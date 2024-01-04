@@ -4,69 +4,88 @@
 
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="pwm.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>PWManager</title>
 
   </head>
   <body>
 
-    <form id="form">
-      <table>
-        <tr>
-          <td colspan="2">
-            <label class="title">PWManager</label>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="master">Master:</label>
-          </td>
-          <td>
-            <input type="password" id="master" name="pwm_master" class="pwm-ignore">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="ident">Identifier:</label>
-          </td>
-          <td>
-            <input type="text" id="ident" name="pwm_ident">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="iter">Iteration:</label>
-          </td>
-          <td>
-            <input type="number" id="iter" name="pwm_iter" value="0" min="0">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="symbols">Symbols:</label>
-          </td>
-          <td>
-            <input type="text" id="symbols" name="pwm_symbols" style="width: 300px">
-            <button type="button" id="allsymbols" style="width: 40px; margin-left: 0.4em">All</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox" id="long" name="pwm_long" style="width:15px;" checked>
-            <label for="long" style="width:35px;text-align:left">Long</label>
-          </td>
-          <td>
-            <button type="button" id="generate">Generate</button>
-            <label id="copymsg" class="copymsg">Copied to clipboard!</label>
-          </td>
-        </tr>
-      </table>
-    </form>
-
-    <div>
-      <a href="pwmanager-1.1.0-fx.xpi">
-        Install Firefox Extension
-        <small><br/>v1.1.0</small>
-      </a>
+    <div class="column-layout" style="min-width: 200px; max-width: 600px">
+      <form id="form" class="flex-item">
+        <table>
+          <tr>
+            <td class="flex-fixed">
+              <span class="icon-spacer" style="margin: 0" />
+            </td>
+            <td>
+              <label class="title">PWManager</label>
+            </td>
+            <td class="flex-fixed vert-auto">
+              <a href="settings.html" target="_blank" rel="noopener noreferrer" class="material-icons icon-button">settings</a>
+            </td>
+          </tr>
+          <tr><td>
+            <span id="master-wrapper" class="input-wrapper">
+              <span class="icon-spacer">
+                <span class="material-icons inline-icon">password</span>
+              </span>
+              <input type="password" id="master" name="pwm_master" class="pwm-ignore" placeholder="Master Password">
+            </span>
+          </td></tr>
+          <tr><td>
+            <span id="ident-wrapper" class="input-wrapper">
+              <span class="icon-spacer">
+                <span id="ident-icon" class="material-icons inline-icon">link</span>
+              </span>
+              <input type="text" id="ident" name="pwm_ident" placeholder="Identifier">
+            </span>
+          </td></tr>
+          <tr><td>
+            <span id="iter-wrapper" class="input-wrapper">
+              <span class="icon-spacer">
+                <span class="material-icons inline-icon">tag</span>
+              </span>
+              <input type="number" id="iter" name="pwm_iter" value="0" min="0" placeholder="Iteration">
+            </span>
+          </td></tr>
+          <tr><td>
+            <span id="symbols-wrapper" class="input-wrapper">
+              <span class="icon-spacer">
+                <span class="material-icons inline-icon">emoji_symbols</span>
+              </span>
+              <input type="text" id="symbols" name="pwm_symbols" placeholder="Symbols">
+              <span class="icon-spacer">
+                <span class="inline-icon tooltip-container" style="padding-top: 4px; pointer-events: auto">
+                  <button type="button" id="allsymbols" class="material-icons icon-button">all_inclusive</button>
+                  <div class="tooltip" style="top: 50px; left: 15px">
+                    All&nbsp;Symbols
+                  </div>
+                </span>
+              </span>
+            </span>
+          </td></tr>
+          <tr><td style="display: flex">
+            <span class="tooltip-container" style="position: relative; padding-right: 10px">
+              <button type="button" id="long" class="material-icons filled-icon-button" style="padding: 8px">text_increase</button>
+              <div class="tooltip" style="top: 60px; left: 17px">
+                Long&nbsp;Password
+              </div>
+            </span>
+            <button type="button" id="generate" class="filled-button"
+              style="flex-grow: 1">Generate & Copy</button>
+          </td></tr>
+          <tr id="copymsg" style="display: none"><td>
+            <label class="msg">Copied to clipboard!</label>
+          </td></tr>
+        </table>
+      </form>
+      
+      <div class="flex-item">
+        <a href="pwmanager-1.1.0-fx.xpi" class="extensionlink">
+          <span>Install Firefox Extension</span>
+          <span class="small">v1.1.0</span>
+        </a>
+      </div>
     </div>
 
     <input type="hidden" id="result" readonly>
