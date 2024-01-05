@@ -21,8 +21,10 @@
   --disabled-fg: #555;
 }
 
-html, body {
+html {
   height: 100%;
+  margin: auto;
+  overflow: scroll;
 }
 
 body {
