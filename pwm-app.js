@@ -11,8 +11,10 @@ const genbtn = document.getElementById("generate");
 const result = document.getElementById("result");
 const copymsg = document.getElementById("copymsg");
 
+//whether long password should be used
 var longpw = true;
 
+//copy generated password and display message
 function genpageCallback(pw) {
   result.type = "text";
   result.value = pw;
@@ -24,6 +26,7 @@ function genpageCallback(pw) {
   setTimeout(() => { copymsg.style.display = "none"; }, 2000);
 }
 
+//process input data and generate password
 function process() {
   const fd = new FormData(form);
   const master = fd.get("pwm_master");
@@ -34,6 +37,7 @@ function process() {
   genPass(master, ident, iter, longpw, symbols, genpageCallback);
 }
 
+//page initialization
 function init() {
   symbolbox.value = DEFAULT_SYMBOLS;
   
@@ -41,14 +45,11 @@ function init() {
   loadSettings();
   
   sync(null);
+  
+  masterbox.focus();
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", init);
-} else {
-  init();
-}
-
+//focus input elements when clicking on its wrapper element
 document.getElementById("master-wrapper").addEventListener("click", function() {
   masterbox.focus();
 });
@@ -62,6 +63,7 @@ symbolwr.addEventListener("click", function() {
   symbolbox.focus();
 })
 
+//validation of iter and symbol inputs - highlight and disable generate button
 iterbox.addEventListener("input", function() {
   if (iterbox.value) {
     iterwr.classList.remove("input-error");
@@ -81,13 +83,16 @@ symbolbox.addEventListener("input", function() {
   }
 });
 
+//generate button
 genbtn.addEventListener("click", process)
 
+//reset to all symbols
 document.getElementById("allsymbols").addEventListener("click", function() {
   symbolbox.value = DEFAULT_SYMBOLS;
   symbolbox.dispatchEvent(new Event("input"));
 })
 
+//toggle long password
 longbtn.addEventListener("click", function() {
   longpw = !longpw;
   if (longpw) {
@@ -97,6 +102,7 @@ longbtn.addEventListener("click", function() {
   }
 })
 
+//highlight ident icon when ident has associated saved settings
 identbox.addEventListener("input", function() {
   if (identbox.value in pwm_settingItems) {
     identicon.classList.add("highlight");
@@ -105,6 +111,7 @@ identbox.addEventListener("input", function() {
   }
 });
 
+//apply saved ident settings on ident change
 identbox.addEventListener("change", function() {
   if (identbox.value in pwm_settingItems) {
     let info = pwm_settingItems[identbox.value];
@@ -120,3 +127,10 @@ identbox.addEventListener("change", function() {
     }
   }
 });
+
+//initial loading trigger
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}
